@@ -79,4 +79,34 @@ public class Professor {
             }
         }
     }
+    
+    @POST
+    @Path("excluir")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response excluir(br.com.nsinova.teste.modelo.Professor professor) throws Exception {
+        br.com.nsinova.teste.conexao.Conexao conexao = null;
+        try {
+            conexao = new br.com.nsinova.teste.conexao.Conexao();
+
+            br.com.nsinova.teste.negocio.Pessoa pessoaNegocio = new br.com.nsinova.teste.negocio.Pessoa(conexao.getConnection());
+            
+            conexao.autoCommit();
+            if (pessoaNegocio.excluir(professor) <= 0) {
+                throw new Exception("Nenhuma linha alterada");
+            }
+            conexao.commit();
+
+            return Response.ok().build();
+        } catch (Exception ex) {
+            if (conexao != null && !conexao.isClosed()) {
+                conexao.rollback();
+            }
+            throw new Exception("Erro ao excluir professor", ex);
+        } finally {
+            if (conexao != null && !conexao.isClosed()) {
+                conexao.close();
+            }
+        }
+    }
 }
