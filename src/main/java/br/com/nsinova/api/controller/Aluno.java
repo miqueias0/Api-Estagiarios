@@ -45,7 +45,7 @@ public class Aluno {
             }
             throw new Exception("Erro ao manter aluno", ex);
         } finally {
-            if (conexao != null && !conexao.isClosed()) {
+            if (conexao != null) {
                 conexao.close();
             }
         }
@@ -76,7 +76,7 @@ public class Aluno {
             }
             throw new Exception("Erro ao alterar aluno", ex);
         } finally {
-            if (conexao != null && !conexao.isClosed()) {
+            if (conexao != null) {
                 conexao.close();
             }
         }
@@ -106,7 +106,7 @@ public class Aluno {
             }
             throw new Exception("Erro ao excluir aluno", ex);
         } finally {
-            if (conexao != null && !conexao.isClosed()) {
+            if (conexao != null) {
                 conexao.close();
             }
         }

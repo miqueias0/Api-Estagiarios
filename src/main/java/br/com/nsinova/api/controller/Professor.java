@@ -99,12 +99,12 @@ public class Professor {
 
             return Response.ok().build();
         } catch (Exception ex) {
-            if (conexao != null && !conexao.isClosed()) {
+            if (conexao != null) {
                 conexao.rollback();
             }
             throw new Exception("Erro ao excluir professor", ex);
         } finally {
-            if (conexao != null && !conexao.isClosed()) {
+            if (conexao != null) {
                 conexao.close();
             }
         }
